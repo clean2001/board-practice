@@ -24,5 +24,5 @@ public class Member {
   private String password;
 
   @OneToMany(mappedBy = "member")
-  private List<Post> posts = new ArrayList<>();
+  private final List<Post> posts = new ArrayList<>();
 }
