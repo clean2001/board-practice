@@ -44,6 +44,7 @@ public class Post extends BaseTimeEntity {
     this.thumbnailImageUrl = thumbnailImageUrl;
     this.member = member;
   }
+
 }
 
 

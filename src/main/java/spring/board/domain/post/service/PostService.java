@@ -1,7 +1,13 @@
 package spring.board.domain.post.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.jaxb.SpringDataJaxb.PageDto;
 import org.springframework.stereotype.Service;
 import spring.board.domain.member.domain.Member;
 import spring.board.domain.member.repository.MemberRepository;
@@ -29,6 +35,10 @@ public class PostService {
   }
 
   // read
+
+  public Page<PostDto> findAllPosts(Pageable pageable) {
+    return postRepository.findAll(pageable).map(PostDto::new);
+  }
   public PostDto findPostById(Long postId) {
     Post post = postRepository.findById(postId)
         .orElseThrow(() -> new IllegalArgumentException("포스트가 존재하지 않습니다"));
