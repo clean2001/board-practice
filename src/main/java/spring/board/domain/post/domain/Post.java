@@ -16,11 +16,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import spring.board.domain.comment.domain.Comment;
 import spring.board.domain.member.domain.Member;
 import spring.board.global.entity.BaseEntity;
+import spring.board.global.entity.BaseTimeEntity;
 
 @NoArgsConstructor
 @Getter
 @Entity
-public class Post extends BaseEntity {
+public class Post extends BaseTimeEntity {
   @Id
   @GeneratedValue
   private Long postId;

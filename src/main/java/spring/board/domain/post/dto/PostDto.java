@@ -17,6 +17,6 @@ public class PostDto {
   private Long postId;
   private String title;
   private String contents;
-//  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private String thumbnailImageUrl;
   private Long memberId;
 }

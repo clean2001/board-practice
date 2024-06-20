@@ -20,15 +20,26 @@ public class PostService {
     Optional<Member> memberOpt = memberRepository.findById(memberId);
     Member member = memberOpt.orElseThrow(() -> new IllegalArgumentException("멤버가 존재하지 않습니다."));
     Post savedPost = postRepository.save(new Post(title, contents, thumbnailImageUrl, member));
-    return new PostDto(savedPost.getPostId(), savedPost.getTitle(), savedPost.getContents(), savedPost.getMember().getMemberId());
+
+    return new PostDto(savedPost.getPostId(),
+        savedPost.getTitle(),
+        savedPost.getContents(),
+        savedPost.getThumbnailImageUrl(),
+        savedPost.getMember().getMemberId());
   }
 
   // read
-  public PostDto readPost(Long postId) {
+  public PostDto findPostById(Long postId) {
     Post post = postRepository.findById(postId)
         .orElseThrow(() -> new IllegalArgumentException("포스트가 존재하지 않습니다"));
 
-    return new PostDto(post.getPostId(), post.getTitle(), post.getContents(), post.getMember().getMemberId());
+    return new PostDto(post.getPostId(),
+        post.getTitle(),
+        post.getContents(),
+        post.getThumbnailImageUrl(),
+        post.getMember().getMemberId());
   }
+
+  //
 
 }

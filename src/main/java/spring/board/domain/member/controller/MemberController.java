@@ -10,7 +10,5 @@ import spring.board.domain.member.service.MemberService;
 @RequestMapping("/member")
 @RestController
 public class MemberController {
-  private final MemberService memberService;
-
 
 }

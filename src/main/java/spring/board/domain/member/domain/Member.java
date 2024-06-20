@@ -12,10 +12,11 @@ import lombok.Getter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import spring.board.domain.post.domain.Post;
 import spring.board.global.entity.BaseEntity;
+import spring.board.global.entity.BaseTimeEntity;
 
 @Getter
 @Entity
-public class Member extends BaseEntity {
+public class Member extends BaseTimeEntity {
   @Id
   @GeneratedValue
   private Long memberId;
