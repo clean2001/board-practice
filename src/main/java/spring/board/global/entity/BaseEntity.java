@@ -20,8 +20,4 @@ public class BaseEntity extends BaseTimeEntity {
   @LastModifiedBy
   private String lastCreatedBy;
 
-  private Boolean delYn;
-
-
-
 }

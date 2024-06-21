@@ -37,8 +37,8 @@ public class PostService {
   }
 
   // read
-  public Page<PostDto> findAllPosts(Pageable pageable) {
-    return postRepository.findAll(pageable).map(PostDto::new);
+  public Page<PostDto> findAllPostsNotDeleted(Pageable pageable) {
+    return postRepository.findByDelYn(false, pageable).map(PostDto::new);
   }
   public PostDto findPostById(Long postId) {
     Post post = postRepository.findById(postId)
@@ -58,6 +58,16 @@ public class PostService {
 
     return postRepository.findById(postDto.getPostId())
         .map(PostDto::new).orElseThrow(() -> new IllegalArgumentException("포스트가 존재하지 않습니다."));
+  }
+
+  // delete
+  @Transactional
+  public PostDto deletePost(Long postId) {
+    postRepository.updateDelYn(postId, true);
+    Post post = postRepository.findById(postId)
+        .orElseThrow(() -> new IllegalArgumentException("포스트가 존재하지 않습니다."));
+
+    return new PostDto(post);
   }
 
 

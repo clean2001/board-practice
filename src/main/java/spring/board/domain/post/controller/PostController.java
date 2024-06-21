@@ -42,7 +42,7 @@ public class PostController {
   @GetMapping
   public Page<PostDto> findAllPosts(@PageableDefault(size = 12, sort = "postId",
       direction = Sort.Direction.DESC)Pageable pageable) {
-    return postService.findAllPosts(pageable);
+    return postService.findAllPostsNotDeleted(pageable);
   }
 
   @GetMapping("/{postId}")
@@ -61,10 +61,14 @@ public class PostController {
       @RequestBody PostDto postDto) {
     return new ResponseEntity<PostDto>(postService.updatePost(postDto), HttpStatus.OK);
   }
-
-
   //== UPDATE END ==//
 
 
+  //== DELETE START ==//
+  @PostMapping("/delete/{postId}")
+  public ResponseEntity<PostDto> deletePost(@PathVariable("postId") Long postId) {
+    return new ResponseEntity<PostDto>(postService.deletePost(postId), HttpStatus.OK);
+  }
+  //== DELETE END ==//
 
 }
