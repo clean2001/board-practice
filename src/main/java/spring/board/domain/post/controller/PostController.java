@@ -55,10 +55,12 @@ public class PostController {
 
 
   //== UPDATE START ==//
-//  @PutMapping("/{postId}")
-//  public ResponseEntity<PostDto> updatePost(@PathVariable("postId") Long postId) {
-//
-//  }
+  @PutMapping("/{postId}")
+  public ResponseEntity<PostDto> updatePost(
+      @PathVariable("postId") Long postId,
+      @RequestBody PostDto postDto) {
+    return new ResponseEntity<PostDto>(postService.updatePost(postDto), HttpStatus.OK);
+  }
 
 
   //== UPDATE END ==//

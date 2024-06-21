@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.jaxb.SpringDataJaxb.PageDto;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spring.board.domain.member.domain.Member;
 import spring.board.domain.member.repository.MemberRepository;
 import spring.board.domain.post.domain.Post;
@@ -35,7 +37,6 @@ public class PostService {
   }
 
   // read
-
   public Page<PostDto> findAllPosts(Pageable pageable) {
     return postRepository.findAll(pageable).map(PostDto::new);
   }
@@ -50,6 +51,14 @@ public class PostService {
         post.getMember().getMemberId());
   }
 
-  //
+  // update
+  @Transactional
+  public PostDto updatePost(PostDto postDto) {
+    postRepository.updatePost(postDto.getPostId(), postDto.getTitle(), postDto.getContents());
+
+    return postRepository.findById(postDto.getPostId())
+        .map(PostDto::new).orElseThrow(() -> new IllegalArgumentException("포스트가 존재하지 않습니다."));
+  }
+
 
 }
