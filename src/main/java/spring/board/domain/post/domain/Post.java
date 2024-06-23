@@ -3,6 +3,7 @@ package spring.board.domain.post.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -23,7 +24,7 @@ import spring.board.global.entity.BaseTimeEntity;
 @Entity
 public class Post extends BaseTimeEntity {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long postId;
 
   private String title;

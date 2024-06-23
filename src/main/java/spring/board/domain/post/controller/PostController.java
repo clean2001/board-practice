@@ -55,7 +55,7 @@ public class PostController {
 
 
   //== UPDATE START ==//
-  @PutMapping("/{postId}")
+  @PutMapping("/update/{postId}")
   public ResponseEntity<PostDto> updatePost(
       @PathVariable("postId") Long postId,
       @RequestBody PostDto postDto) {

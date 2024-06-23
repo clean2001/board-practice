@@ -3,6 +3,7 @@ package spring.board.domain.comment.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Builder;
@@ -18,7 +19,7 @@ import spring.board.global.entity.BaseTimeEntity;
 @Entity
 public class Comment extends BaseTimeEntity {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long commentId;
 
   private String contents;
