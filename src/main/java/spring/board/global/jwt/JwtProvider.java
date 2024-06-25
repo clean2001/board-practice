@@ -53,7 +53,7 @@ public class JwtProvider {
 //
 //  }
 
-  private String createAccessToken(Long memberId, String email) {
+  public String createAccessToken(Long memberId, String email) {
     Map<String, Object> claims = new HashMap<>();
 
     claims.put("memberId", memberId);
@@ -71,7 +71,7 @@ public class JwtProvider {
   }
 
 
-  private String createRefreshToken(Long memberId, String email) {
+  public String createRefreshToken(Long memberId, String email) {
     Date expiration = new Date(System.currentTimeMillis() + refreshTokenExpiration);
     String refreshToken = Jwts.builder()
         .subject(Long.toString(memberId))

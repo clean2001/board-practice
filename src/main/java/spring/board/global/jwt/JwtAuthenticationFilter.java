@@ -1,7 +1,6 @@
 package spring.board.global.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,15 +13,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import spring.board.domain.member.domain.Member;
-import spring.board.global.auth.PrincipalDetailService;
 import spring.board.global.auth.PrincipalDetails;
 
 // 스프링 시큐리티에 있는 필터임 (UsernamePasswordAuthenticationFilter)
 // /login 요청해서 post로 username, password 전송하면 이 필터가 동작을 함
-//
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
   private final AuthenticationManager authenticationManager;
+  private final JwtProvider jwtProvider;
 
   // /login에 요청을 하면 로그인 실행을 위해 동작한다.
   @Override
@@ -72,5 +70,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       FilterChain chain, Authentication authResult) throws IOException, ServletException {
     System.out.println("Authentication 완료!!!!");
 
+    PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
+
+    Long memberId = principalDetails.getMember().getMemberId();
+    String email = principalDetails.getMember().getEmail();
+
+    String accessToken = jwtProvider.createAccessToken(memberId, email);
+
+    response.addHeader("Authorization", "Bearer " + accessToken);
+
+    System.out.println("//== line 84 ==// Success");
   }
 }

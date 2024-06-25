@@ -25,6 +25,7 @@ import spring.board.global.auth.PrincipalDetailService;
 import spring.board.global.auth.PrincipalDetails;
 import spring.board.global.filter.MyFilter;
 import spring.board.global.jwt.JwtAuthenticationFilter;
+import spring.board.global.jwt.JwtProvider;
 
 @RequiredArgsConstructor
 @Configuration
@@ -32,6 +33,7 @@ import spring.board.global.jwt.JwtAuthenticationFilter;
 public class SecurityConfig {
   private final CorsConfig corsConfig;
   private final PrincipalDetailService principalDetailService;
+  private final JwtProvider jwtProvider;
   @Bean
   public BCryptPasswordEncoder passwordEncoder() { // Password Encoder
     // 빈으로 등록만 해주면, 알아서 이 패스워드 인코더를 찾아서 암호화후에 DB와 비교
@@ -54,7 +56,7 @@ public class SecurityConfig {
         .csrf(AbstractHttpConfigurer::disable)
         .formLogin(AbstractHttpConfigurer::disable)
         .httpBasic(AbstractHttpConfigurer::disable)
-        .addFilter(new JwtAuthenticationFilter(authenticationManager)) // 내가 만든 필터를 등록하기
+        .addFilter(new JwtAuthenticationFilter(authenticationManager, jwtProvider)) // 내가 만든 필터를 등록하기
         .authorizeHttpRequests(authorizeRequest ->
             authorizeRequest
                 .requestMatchers(
