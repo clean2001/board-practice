@@ -25,6 +25,7 @@ import spring.board.global.auth.PrincipalDetailService;
 import spring.board.global.auth.PrincipalDetails;
 import spring.board.global.filter.MyFilter;
 import spring.board.global.jwt.JwtAuthenticationFilter;
+import spring.board.global.jwt.JwtAuthorizationFilter;
 import spring.board.global.jwt.JwtProvider;
 
 @RequiredArgsConstructor
@@ -57,6 +58,7 @@ public class SecurityConfig {
         .formLogin(AbstractHttpConfigurer::disable)
         .httpBasic(AbstractHttpConfigurer::disable)
         .addFilter(new JwtAuthenticationFilter(authenticationManager, jwtProvider)) // 내가 만든 필터를 등록하기
+        .addFilter(new JwtAuthorizationFilter(authenticationManager))
         .authorizeHttpRequests(authorizeRequest ->
             authorizeRequest
                 .requestMatchers(
